@@ -49,6 +49,12 @@ export const cardGrid = style({
   display: "flex",
   gap: theme.spacing.large,
   marginBlock: theme.spacing.medium,
+  "@media": {
+    "screen and (max-width: 768px)": {
+      flexDirection: "column",
+      alignItems: "center",
+    },
+  },
 });
 
 export const card = style({
