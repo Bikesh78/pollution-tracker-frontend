@@ -39,16 +39,26 @@ const getWaterQualityStatus = (wqi: number) => {
 
 export interface Props {
   data: PollutionData;
+  refetch: () => void;
 }
 
-export const PollutionCard: React.FC<Props> = ({ data }) => {
+export const PollutionCard: React.FC<Props> = ({ data, refetch }) => {
   return (
     <div className={card}>
-      <div className={cardHeader}>
-        <h3 className={cardTitle}>Current Pollution Level</h3>
-        <h4 className={cardSubHeader}>
-          Last updated: {getDate(data?.date ?? "")}
-        </h4>
+      <div
+        className={cardHeader}
+        style={{ display: "flex", justifyContent: "space-between" }}
+      >
+        <div>
+          <h3 className={cardTitle}>Current Pollution Level</h3>
+          <h4 className={cardSubHeader}>
+            Last updated: {getDate(data?.date ?? "")}
+          </h4>
+        </div>
+
+        <button style={{ alignSelf: "center" }} onClick={refetch}>
+          Reload
+        </button>
       </div>
 
       <div className={cardContent}>
@@ -77,7 +87,7 @@ export const PollutionCard: React.FC<Props> = ({ data }) => {
                 height: "10px",
                 borderRadius: "32px",
                 background: getAirQualityStatus(data?.air_quality_index).color,
-                width: `${data?.air_quality_index / 300 *100}%`,
+                width: `${(data?.air_quality_index / 300) * 100}%`,
               }}
             ></div>
           </div>
@@ -112,8 +122,9 @@ export const PollutionCard: React.FC<Props> = ({ data }) => {
               style={{
                 height: "10px",
                 borderRadius: "32px",
-                background: getWaterQualityStatus(data?.water_quality_index).color,
-                width: `${data?.water_quality_index / 100 *100}%`,
+                background: getWaterQualityStatus(data?.water_quality_index)
+                  .color,
+                width: `${(data?.water_quality_index / 100) * 100}%`,
               }}
             ></div>
           </div>

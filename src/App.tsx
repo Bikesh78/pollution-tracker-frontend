@@ -38,7 +38,7 @@ export interface PollutionResponse {
 }
 
 function App() {
-  const { res, isLoading, error } = useFetch<{ data: PollutionResponse }>(
+  const { res, isLoading, refetch } = useFetch<{ data: PollutionResponse }>(
     `${BASE_URL}/api/pollution`,
   );
 
@@ -54,7 +54,7 @@ function App() {
         </header>
 
         <div className={cardGrid}>
-          <PollutionCard data={res?.data?.data?.live_data!} />
+          <PollutionCard data={res?.data?.data?.live_data!} refetch={refetch} />
           <WeatherCard data={res?.data?.data?.weather!} />
         </div>
 

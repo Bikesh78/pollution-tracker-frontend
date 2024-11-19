@@ -17,7 +17,9 @@ interface Props {
 export const Chart: React.FC<Props> = ({ data }) => {
   return (
     <div className={chartContainer}>
-      <h2>Historical Pollution Data</h2>
+      <h2 style={{ textAlign: "center", fontWeight: 500 }}>
+        Historical Pollution Data
+      </h2>
       <ResponsiveContainer
         width="100%"
         height="100%"

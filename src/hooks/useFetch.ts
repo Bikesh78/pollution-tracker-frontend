@@ -5,6 +5,9 @@ export const useFetch = <T>(url: string) => {
   const [res, setRes] = useState<AxiosResponse<T>>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<AxiosError>();
+  const [fetchCounter, setRefetchCounter] = useState(0);
+
+  const refetch = () => setRefetchCounter((prev) => prev + 1);
 
   useEffect(() => {
     setIsLoading(true);
@@ -12,12 +15,18 @@ export const useFetch = <T>(url: string) => {
     const signal = controller.signal;
     axios
       .get(url, { signal })
-      .then((res: AxiosResponse<T>) => setRes(res))
-      .catch((err: AxiosError) => setError(err))
-      .finally(() => setIsLoading(false));
+      .then((res: AxiosResponse<T>) => {
+        setRes(res);
+        setIsLoading(false);
+      })
+      .catch((err: AxiosError) => {
+        if (axios.isAxiosError(error)) return;
+        setError(err);
+        setIsLoading(false);
+      });
 
     return () => controller.abort();
-  }, []);
+  }, [fetchCounter]);
 
-  return { res, isLoading, error };
+  return { res, isLoading, error, refetch };
 };

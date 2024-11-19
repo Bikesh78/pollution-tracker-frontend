@@ -19,3 +19,14 @@ globalStyle("p,h1, h2, h3, h4, h5, h6", {
   fontWeight: "normal",
   lineHeight: 1.4,
 });
+
+globalStyle("button", {
+  padding: "8px",
+  background: "white",
+  outline: "transparent",
+  border: "transparent",
+  fontSize: "14px",
+  fontWeight: 500,
+  cursor: "pointer",
+  borderRadius: "8px",
+});
