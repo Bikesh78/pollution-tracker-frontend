@@ -1,3 +1,4 @@
+import { Weather } from "../App";
 import {
   card,
   cardContent,
@@ -16,7 +17,11 @@ import {
   Wind,
 } from "lucide-react";
 
-export const WeatherCard = () => {
+interface Props {
+  data: Weather;
+}
+
+export const WeatherCard: React.FC<Props> = ({ data }) => {
   return (
     <div className={`${card} weather-card`}>
       <div className={cardHeader}>
@@ -26,67 +31,54 @@ export const WeatherCard = () => {
 
       <div className={cardContent}>
         <div className={flexBetween}>
-          <div style={{ paddingBlock: "8px" }}>
+          <div style={{ paddingBlock: "8px", width: "150px" }}>
             <p style={{ display: "flex", alignItems: "center" }}>
               <Thermometer style={{ marginRight: "8px" }} />
               <span style={{ fontWeight: 600 }}>Temperature:</span>
             </p>
-            <p style={{ marginLeft: "34px" }}>22°C</p>
+            <p style={{ marginLeft: "34px" }}>{data?.temp}<sup>o</sup>F</p>
           </div>
-          <div style={{ paddingBlock: "8px" }}>
+          <div style={{ paddingBlock: "8px", width: "150px" }}>
             <p style={{ display: "flex", alignItems: "center" }}>
               <Droplets style={{ marginRight: "8px" }} />
               <span style={{ fontWeight: 600 }}>Humidity:</span>
             </p>
-            <p style={{ marginLeft: "34px" }}>{22}%</p>
+            <p style={{ marginLeft: "34px" }}>{data?.humidity}%</p>
+          </div>
+        </div>
+
+        <div className={flexBetween}>
+          <div style={{ paddingBlock: "8px", width: "150px" }}>
+            <p style={{ display: "flex", alignItems: "center" }}>
+              <Thermometer style={{ marginRight: "8px" }} />
+              <span style={{ fontWeight: 600 }}>Max Temp:</span>
+            </p>
+            <p style={{ marginLeft: "34px" }}>{data?.temp_max}<sup>o</sup>F</p>
+          </div>
+          <div style={{ paddingBlock: "8px", width: "150px" }}>
+            <p style={{ display: "flex", alignItems: "center" }}>
+              <Droplets style={{ marginRight: "8px" }} />
+              <span style={{ fontWeight: 600 }}>Min Temp:</span>
+            </p>
+            <p style={{ marginLeft: "34px" }}>{data?.temp_min}<sup>o</sup>F</p>
           </div>
         </div>
 
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div style={{ paddingBlock: "8px" }}>
+          <div style={{ paddingBlock: "8px", width: "150px" }}>
             <p style={{ display: "flex", alignItems: "center" }}>
               <Wind style={{ marginRight: "8px" }} />
               <span style={{ fontWeight: 600 }}>Wind:</span>
             </p>
-            <p style={{ marginLeft: "34px" }}>{22} m/s</p>
-            <p style={{ marginLeft: "34px" }}>Direction: {25}°</p>
-          </div>
-          <div style={{ paddingBlock: "8px" }}>
-            <p style={{ display: "flex", alignItems: "center" }}>
-              <Eye style={{ marginRight: "8px" }} />
-              <span style={{ fontWeight: 600 }}>Visibility:</span>
-            </p>
-            <p style={{ marginLeft: "34px" }}>{200 / 1000} km</p>
-          </div>
-        </div>
-
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          {/* <div style={{ paddingBlock: "8px" }}> */}
-          {/*   <p style={{ display: "flex", alignItems: "center" }}> */}
-          {/*     <Sun style={{ marginRight: "8px" }} /> */}
-          {/*     <span style={{ fontWeight: 600 }}>Conditions:</span> */}
-          {/*   </p> */}
-          {/*   <p style={{ marginLeft: "34px" }}>{"Clear sky"}</p> */}
-          {/* </div> */}
-          <div style={{ paddingBlock: "8px" }}>
-            <p style={{ display: "flex", alignItems: "center" }}>
-              <Sunrise style={{ marginRight: "8px" }} />
-              <span style={{ fontWeight: 600 }}>Sunrise:</span>
-            </p>
-            <p style={{ marginLeft: "34px" }}>05:45 AM</p>
+            <p style={{ marginLeft: "34px" }}>{data?.wind_speed} m/s</p>
           </div>
 
-          <div style={{ paddingBlock: "8px" }}>
-            <p
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <Sunset style={{ marginRight: "8px" }} />
-              <span style={{ fontWeight: 600 }}>Sunset:</span>
+          <div style={{ paddingBlock: "8px", width: "150px" }}>
+            <p style={{ display: "flex", alignItems: "center" }}>
+              <Sun style={{ marginRight: "8px" }} />
+              <span style={{ fontWeight: 600 }}>Conditions:</span>
             </p>
-            <p style={{ marginLeft: "34px" }}>6:00 PM</p>
+            <p style={{ marginLeft: "34px" }}>{data?.condition}</p>
           </div>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { PollutionData } from "../App";
 import {
   card,
   cardContent,
@@ -8,25 +9,21 @@ import {
   cardTitle,
   flexBetween,
 } from "../styles/styles.css";
-import { format, parse } from "date-fns";
 
-const dateString = "Sat, 16 Nov 2024 00:00:00 GMT";
+const getDate = (dateString: string) => {
+  const date = new Date(dateString);
 
-const parsedDate = parse(
-  dateString.replace(" GMT", ""),
-  "EEE, dd MMM yyyy HH:mm:ss xxx",
-  new Date(),
-);
-const date = new Date(dateString);
-const formattedDate = date.toLocaleString("en-US", {
-  month: "2-digit",
-  day: "2-digit",
-  year: "numeric",
-  hour: "2-digit",
-  minute: "2-digit",
-  second: "2-digit",
-  hour12: true,
-});
+  const formattedDate = date.toLocaleString("en-US", {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  });
+  return formattedDate;
+};
 
 const getAirQualityStatus = (aqi: number) => {
   if (aqi <= 50) return { label: "Good", color: "teal" };
@@ -40,12 +37,18 @@ const getWaterQualityStatus = (wqi: number) => {
   return { label: "Poor", color: "red" };
 };
 
-export const PollutionCard = () => {
+export interface Props {
+  data: PollutionData;
+}
+
+export const PollutionCard: React.FC<Props> = ({ data }) => {
   return (
     <div className={card}>
       <div className={cardHeader}>
         <h3 className={cardTitle}>Current Pollution Level</h3>
-        <h4 className={cardSubHeader}>Last updated: {formattedDate}</h4>
+        <h4 className={cardSubHeader}>
+          Last updated: {getDate(data?.date ?? "")}
+        </h4>
       </div>
 
       <div className={cardContent}>
@@ -53,9 +56,12 @@ export const PollutionCard = () => {
           <div className={flexBetween}>
             <p className={cardSubtitle}>Air Quality Index</p>
             <p
-              style={{ color: getAirQualityStatus(83).color, fontWeight: 600 }}
+              style={{
+                color: getAirQualityStatus(data?.air_quality_index).color,
+                fontWeight: 600,
+              }}
             >
-              {getAirQualityStatus(83).label}
+              {getAirQualityStatus(data?.air_quality_index).label}
             </p>
           </div>
           <div
@@ -70,13 +76,13 @@ export const PollutionCard = () => {
               style={{
                 height: "10px",
                 borderRadius: "32px",
-                background: "orange",
-                width: "80%",
+                background: getAirQualityStatus(data?.air_quality_index).color,
+                width: `${data?.air_quality_index / 300 *100}%`,
               }}
             ></div>
           </div>
           <p style={{ fontSize: "12px", color: "#6b7280", marginTop: "4px" }}>
-            83 AQI
+            {data?.air_quality_index} AQI
           </p>
         </div>
 
@@ -86,9 +92,12 @@ export const PollutionCard = () => {
               Water Quality Index
             </p>
             <p
-              style={{ color: getAirQualityStatus(83).color, fontWeight: 600 }}
+              style={{
+                color: getWaterQualityStatus(data?.water_quality_index).color,
+                fontWeight: 600,
+              }}
             >
-              {getWaterQualityStatus(83).label}
+              {getWaterQualityStatus(data?.water_quality_index).label}
             </p>
           </div>
           <div
@@ -103,13 +112,13 @@ export const PollutionCard = () => {
               style={{
                 height: "10px",
                 borderRadius: "32px",
-                background: "orange",
-                width: "80%",
+                background: getWaterQualityStatus(data?.water_quality_index).color,
+                width: `${data?.water_quality_index / 100 *100}%`,
               }}
             ></div>
           </div>
           <p style={{ fontSize: "12px", color: "#6b7280", marginTop: "4px" }}>
-            83 WQI
+            {data?.water_quality_index} WQI
           </p>
         </div>
       </div>
@@ -134,7 +143,7 @@ export const PollutionCard = () => {
                 lineHeight: 1.5,
               }}
             >
-              {70.68}°F
+              {data?.temperature}°F
             </p>
           </div>
           <div>
@@ -149,7 +158,7 @@ export const PollutionCard = () => {
                 lineHeight: 1.5,
               }}
             >
-              {13.38}
+              {data?.ph_level}
             </p>
           </div>
         </div>
