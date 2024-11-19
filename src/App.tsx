@@ -3,6 +3,7 @@ import { useFetch } from "./hooks/useFetch";
 import { PollutionCard } from "./components/pollution-card";
 import { WeatherCard } from "./components/weather-card";
 import { Chart } from "./components/chart-component";
+import { Loader } from "./components/loader";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -28,6 +29,10 @@ function App() {
   const { res, isLoading, error } = useFetch<{ data: PollutionResponse }>(
     `${BASE_URL}/api/pollution`,
   );
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <>
