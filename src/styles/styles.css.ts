@@ -112,14 +112,14 @@ export const flexBetween = style({
 
 export const chartContainer = style({
   width: "100%",
-  height: "400px",
+  height: "450px",
   background: "white",
   padding: "32px",
   borderRadius: "8px",
 });
 
 export const responsiveChartContainer = style({
-  marginTop: "8px",
+  marginBlock: "8px",
 });
 
 const spin = keyframes({

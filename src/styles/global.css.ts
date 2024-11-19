@@ -30,3 +30,9 @@ globalStyle("button", {
   cursor: "pointer",
   borderRadius: "8px",
 });
+
+globalStyle("input", {
+  padding: "8px",
+  fontSize: "12px",
+  lineHeight: 1.4,
+});

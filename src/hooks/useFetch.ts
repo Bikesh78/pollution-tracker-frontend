@@ -26,7 +26,7 @@ export const useFetch = <T>(url: string) => {
       });
 
     return () => controller.abort();
-  }, [fetchCounter]);
+  }, [fetchCounter, url]);
 
   return { res, isLoading, error, refetch };
 };

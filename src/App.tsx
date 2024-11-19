@@ -4,6 +4,7 @@ import { PollutionCard } from "./components/pollution-card";
 import { WeatherCard } from "./components/weather-card";
 import { Chart } from "./components/chart-component";
 import { Loader } from "./components/loader";
+import { useMemo, useState } from "react";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -38,8 +39,19 @@ export interface PollutionResponse {
 }
 
 function App() {
+  const [dateRange, setDateRange] = useState<any[]>([null, null]);
+  const [startDate, endDate] = dateRange;
+
+  const url = useMemo(() => {
+    let result = `${BASE_URL}/api/pollution`;
+    if (startDate && endDate) {
+      result = `${BASE_URL}/api/pollution?start_date=${startDate}&end_date=${endDate}`;
+    }
+    return result;
+  }, [startDate, endDate]);
+
   const { res, isLoading, refetch } = useFetch<{ data: PollutionResponse }>(
-    `${BASE_URL}/api/pollution`,
+    url,
   );
 
   if (isLoading) {
@@ -58,7 +70,11 @@ function App() {
           <WeatherCard data={res?.data?.data?.weather!} />
         </div>
 
-        <Chart data={res?.data?.data?.historical_data ?? []} />
+        <Chart
+          data={res?.data?.data?.historical_data ?? []}
+          dateRange={dateRange}
+          setDateRange={setDateRange}
+        />
       </div>
     </>
   );

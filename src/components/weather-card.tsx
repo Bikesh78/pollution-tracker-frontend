@@ -7,15 +7,7 @@ import {
   cardTitle,
   flexBetween,
 } from "../styles/styles.css";
-import {
-  Droplets,
-  Eye,
-  Sun,
-  Sunrise,
-  Sunset,
-  Thermometer,
-  Wind,
-} from "lucide-react";
+import { Droplets, Sun, Thermometer, Wind } from "lucide-react";
 
 interface Props {
   data: Weather;
@@ -36,7 +28,10 @@ export const WeatherCard: React.FC<Props> = ({ data }) => {
               <Thermometer style={{ marginRight: "8px" }} />
               <span style={{ fontWeight: 600 }}>Temperature:</span>
             </p>
-            <p style={{ marginLeft: "34px" }}>{data?.temp}<sup>o</sup>F</p>
+            <p style={{ marginLeft: "34px" }}>
+              {data?.temp}
+              <sup>o</sup>F
+            </p>
           </div>
           <div style={{ paddingBlock: "8px", width: "150px" }}>
             <p style={{ display: "flex", alignItems: "center" }}>
@@ -53,14 +48,20 @@ export const WeatherCard: React.FC<Props> = ({ data }) => {
               <Thermometer style={{ marginRight: "8px" }} />
               <span style={{ fontWeight: 600 }}>Max Temp:</span>
             </p>
-            <p style={{ marginLeft: "34px" }}>{data?.temp_max}<sup>o</sup>F</p>
+            <p style={{ marginLeft: "34px" }}>
+              {data?.temp_max}
+              <sup>o</sup>F
+            </p>
           </div>
           <div style={{ paddingBlock: "8px", width: "150px" }}>
             <p style={{ display: "flex", alignItems: "center" }}>
               <Droplets style={{ marginRight: "8px" }} />
               <span style={{ fontWeight: 600 }}>Min Temp:</span>
             </p>
-            <p style={{ marginLeft: "34px" }}>{data?.temp_min}<sup>o</sup>F</p>
+            <p style={{ marginLeft: "34px" }}>
+              {data?.temp_min}
+              <sup>o</sup>F
+            </p>
           </div>
         </div>
 
