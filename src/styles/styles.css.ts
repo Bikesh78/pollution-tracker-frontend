@@ -8,7 +8,6 @@ const breakpoints = {
 
 export const theme = createGlobalTheme(":root", {
   colors: {
-    // primary: "#3498db",
     primary: "#e0f2fe",
     secondary: "#2ecc71",
     background: "#f4f4f9",
@@ -41,7 +40,7 @@ export const container = style({
 
 export const header = style({
   textAlign: "center",
-  paddingBlock: theme.spacing.medium,
+  paddingBlock: theme.spacing.large,
   fontWeight: 600,
 });
 
@@ -50,7 +49,7 @@ export const cardGrid = style({
   gap: theme.spacing.large,
   marginBlock: theme.spacing.medium,
   "@media": {
-    "screen and (max-width: 768px)": {
+    [`screen and (max-width: ${breakpoints.md})`]: {
       flexDirection: "column",
       alignItems: "center",
     },
@@ -87,7 +86,6 @@ export const cardTitle = style({
   selectors: {
     [`.weather-card &`]: {
       fontWeight: 700,
-      // color: "green",
     },
   },
 });
@@ -110,4 +108,16 @@ export const cardSubtitle = style({
 export const flexBetween = style({
   display: "flex",
   justifyContent: "space-between",
+});
+
+export const chartContainer = style({
+  width: "100%",
+  height: "400px",
+  background: "white",
+  padding: "32px",
+  borderRadius: "8px",
+});
+
+export const responsiveChartContainer = style({
+  marginTop: "8px",
 });
